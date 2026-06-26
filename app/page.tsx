@@ -35,7 +35,7 @@ const MOCK_CATEGORIES = [
   { slug: 'video', name: 'Video', icon: 'Video', gradient: 'from-red-500 to-orange-500', count: 5, description: 'AI video creation' },
 ];
 
-function useFetch(url: string) {
+function useFetch(url: string) { 
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
