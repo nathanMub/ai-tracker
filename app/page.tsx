@@ -24,7 +24,7 @@ export default function Home() {
   const toggleCompare = (id: string) => {
     setSelectedTools(prev => 
       prev.includes(id) 
-      ? prev.filter(t => t!== id)
+     ? prev.filter(t => t!== id)
         : prev.length < 3? [...prev, id] : prev
     )
   }
@@ -33,7 +33,6 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#0D0D0D] to-[#000000] text-white">
-      {/* Header with gradient glow */}
       <div className="border-b border-gray-800/50 bg-[#0A0A0A]/80 backdrop-blur-xl sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -47,9 +46,8 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Compare Bar */}
       {selectedTools.length > 0 && (
-        <div className="sticky top-[65px] z-30 bg-gradient-to-r from-purple-600 to-blue-600 px-4 py-3 shadow-lg shadow-purple-500/20 animate-in slide-in-from-top">
+        <div className="sticky top-[65px] z-30 bg-gradient-to-r from-purple-600 to-blue-600 px-4 py-3 shadow-lg shadow-purple-500/20">
           <div className="max-w-7xl mx-auto flex items-center justify-between">
             <div className="flex items-center gap-3">
               <span className="font-semibold">{selectedTools.length}/3 tools selected</span>
@@ -72,7 +70,6 @@ export default function Home() {
         </div>
       )}
 
-      {/* Hero Section */}
       <div className="max-w-7xl mx-auto px-4 pt-16 pb-8">
         <div className="text-center mb-12">
           <div className="inline-block mb-4 px-4 py-1.5 bg-orange-500/10 border border-orange-500/20 rounded-full text-orange-400 text-sm font-medium">
@@ -84,7 +81,6 @@ export default function Home() {
           <p className="text-gray-400 text-lg">Discover, upvote, and compare the best AI tools</p>
         </div>
         
-        {/* Tool List */}
         <div className="space-y-4">
           {sortedTools.map((tool, index) => (
             <div 
@@ -93,7 +89,6 @@ export default function Home() {
               onMouseLeave={() => setHoveredTool(null)}
               className="group relative bg-gradient-to-br from-[#1A1A1A] to-[#141414] border border-gray-800/50 rounded-2xl p-5 hover:border-orange-500/50 transition-all duration-300 hover:shadow-xl hover:shadow-orange-500/10 hover:-translate-y-0.5"
             >
-              {/* Rank Badge */}
               {index < 3 && (
                 <div className="absolute -top-2 -left-2 w-8 h-8 bg-gradient-to-br from-orange-500 to-pink-500 rounded-lg flex items-center justify-center font-bold text-sm shadow-lg">
                   #{index + 1}
@@ -101,7 +96,6 @@ export default function Home() {
               )}
 
               <div className="flex items-center gap-5">
-                {/* Upvote */}
                 <button 
                   onClick={(e) => handleUpvote(tool.id, e)}
                   className="flex flex-col items-center justify-center w-16 h-16 border-2 border-gray-700 rounded-xl hover:border-orange-500 hover:bg-orange-500/10 transition-all hover:scale-110 group/upvote"
@@ -112,7 +106,6 @@ export default function Home() {
                   <span className="text-base font-bold">{upvotes[tool.id] || 0}</span>
                 </button>
 
-                {/* Logo with glow */}
                 <div className="relative">
                   <div className={`absolute inset-0 bg-orange-500/20 rounded-xl blur-xl transition-opacity ${hoveredTool === tool.id? 'opacity-100' : 'opacity-0'}`}></div>
                   <img 
@@ -125,7 +118,6 @@ export default function Home() {
                   />
                 </div>
 
-                {/* Info */}
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-1.5">
                     <h3 className="text-xl font-bold group-hover:text-orange-400 transition-colors">{tool.name}</h3>
@@ -144,12 +136,11 @@ export default function Home() {
                   </div>
                 </div>
 
-                {/* Compare Checkbox */}
                 <button
                   onClick={() => toggleCompare(tool.id)}
                   className={`px-4 py-2.5 rounded-xl text-sm font-semibold border-2 transition-all ${
                     selectedTools.includes(tool.id) 
-                    ? 'bg-purple-600 border-purple-600 text-white shadow-lg shadow-purple-500/25 scale-105' 
+                   ? 'bg-purple-600 border-purple-600 text-white shadow-lg shadow-purple-500/25 scale-105' 
                       : 'border-gray-700 hover:border-purple-500 hover:bg-purple-500/10'
                   }`}
                 >
