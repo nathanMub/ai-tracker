@@ -1,12 +1,45 @@
 'use client'
 
-import { tools } from '@/lib/tools'
+import { supabase } from '@/lib/supabase'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+
+type Tool = {
+  id: string
+  name: string
+  description: string
+  category: string
+  price: string
+  url: string
+  logo: string
+  featured: boolean
+  pros: string[]
+  cons: string[]
+  best_for: string
+  votes: number
+}
 
 export default function Home() {
+  const [tools, setTools] = useState<Tool[]>([])
   const [search, setSearch] = useState('')
   const [category, setCategory] = useState('All')
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    fetchTools()
+  }, [])
+
+  async function fetchTools() {
+    const { data, error } = await supabase
+      .from('tools')
+      .select('*')
+      .order('featured', { ascending: false })
+      .order('votes', { ascending: false })
+    
+    if (data) setTools(data)
+    if (error) console.error(error)
+    setLoading(false)
+  }
 
   const categories = ['All', ...new Set(tools.map(t => t.category))]
   const featuredTools = tools.filter(t => t.featured)
@@ -22,38 +55,40 @@ export default function Home() {
     return matchesSearch && matchesCategory
   })
 
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-[#0D0D0D] text-white flex items-center justify-center">
+        <div className="text-xl">Loading AI tools...</div>
+      </div>
+    )
+  }
+
   return (
     <div className="min-h-screen bg-[#0D0D0D] text-white">
-      {/* NAVBAR */}
       <nav className="border-b border-gray-800/50 bg-[#0A0A0A]/80 backdrop-blur-xl sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-2">
+          <Link href="/" className="flex items-center gap-2">
             <div className="w-8 h-8 bg-gradient-to-br from-orange-500 to-pink-500 rounded-lg"></div>
             <span className="font-bold text-xl">AI Tool Hub</span>
-          </div>
+          </Link>
           <div className="flex items-center gap-4">
-            <Link href="#tools" className="text-gray-400 hover:text-white transition text-sm">
+            <Link href="/upvote" className="text-gray-400 hover:text-white transition text-sm">
+              Top Voted
+            </Link>
+            <Link href="/#tools" className="text-gray-400 hover:text-white transition text-sm">
               Browse Tools
             </Link>
-            <a 
-              href="https://github.com" 
-              target="_blank"
-              className="bg-white text-black px-4 py-2 rounded-lg font-semibold text-sm hover:bg-gray-200 transition"
-            >
-              Submit Tool
-            </a>
           </div>
         </div>
       </nav>
 
-      {/* HERO SECTION */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-orange-500/10 via-transparent to-pink-500/10"></div>
         <div className="max-w-7xl mx-auto px-4 py-20 relative">
           <div className="max-w-3xl mx-auto text-center">
             <div className="inline-flex items-center gap-2 bg-orange-500/10 border border-orange-500/20 rounded-full px-4 py-1.5 mb-6">
               <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-              <span className="text-sm text-orange-300">Updated daily with new AI tools</span>
+              <span className="text-sm text-orange-300">Live database • Updates in real-time</span>
             </div>
             
             <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
@@ -74,14 +109,13 @@ export default function Home() {
                 Browse {tools.length}+ Tools
               </a>
               <Link 
-                href="/tools/chatgpt"
+                href="/upvote"
                 className="bg-[#1A1A1A] border border-gray-800 px-8 py-3.5 rounded-xl font-semibold hover:border-gray-700 transition"
               >
-                View Top Pick →
+                View Top Voted →
               </Link>
             </div>
 
-            {/* STATS */}
             <div className="grid grid-cols-3 gap-8 max-w-2xl mx-auto">
               <div>
                 <div className="text-3xl font-bold text-white mb-1">{tools.length}+</div>
@@ -92,15 +126,14 @@ export default function Home() {
                 <div className="text-sm text-gray-500">Categories</div>
               </div>
               <div>
-                <div className="text-3xl font-bold text-white mb-1">100%</div>
-                <div className="text-sm text-gray-500">Free to Use</div>
+                <div className="text-3xl font-bold text-white mb-1">Live</div>
+                <div className="text-sm text-gray-500">Database</div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* FEATURED SECTION */}
       {featuredTools.length > 0 && (
         <section className="max-w-7xl mx-auto px-4 py-16">
           <div className="flex items-center justify-between mb-8">
@@ -149,7 +182,6 @@ export default function Home() {
         </section>
       )}
 
-      {/* ALL TOOLS SECTION */}
       <section id="tools" className="max-w-7xl mx-auto px-4 py-16">
         <div className="mb-8">
           <div className="flex items-center gap-3 mb-6">
@@ -225,7 +257,6 @@ export default function Home() {
         )}
       </section>
 
-      {/* FOOTER */}
       <footer className="border-t border-gray-800/50 mt-20">
         <div className="max-w-7xl mx-auto px-4 py-12">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
@@ -234,7 +265,7 @@ export default function Home() {
               <span className="font-semibold">AI Tool Hub</span>
             </div>
             <div className="text-gray-500 text-sm">
-              Built by Nathan from Germiston 🇿🇦 • {new Date().getFullYear()}
+              Built by Nathan from Germiston 🇿🇦 • Powered by Supabase
             </div>
           </div>
         </div>
