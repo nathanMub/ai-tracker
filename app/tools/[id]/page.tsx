@@ -43,7 +43,6 @@ export default async function ToolPage({ params }: { params: Promise<{ id: strin
           </div>
         </div>
 
-        {/* AI Review */}
         <div className="bg-gradient-to-br from-[#1A1A1A] to-[#141414] border border-gray-800/50 rounded-2xl p-8">
           <div className="flex items-center gap-3 mb-6">
             <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-blue-500 rounded-lg flex items-center justify-center">
@@ -81,7 +80,7 @@ export default async function ToolPage({ params }: { params: Promise<{ id: strin
           </div>
 
           <div className="bg-gradient-to-r from-purple-600/20 to-blue-600/20 border border-purple-500/30 rounded-xl p-5">
-            <p className="text-xs text-purple-300 font-semibold mb-1 uppercase tracking-wider">Best For</p>
+            <p className="text-xs text-purple-300 font-semibold mb-1 uppercase tracking-wider">BEST FOR</p>
             <p className="text-lg text-white">{tool.aiReview?.bestFor}</p>
           </div>
         </div>
