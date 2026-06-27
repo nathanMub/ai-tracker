@@ -15,7 +15,10 @@
     "openai": "^4.67.3",
     "lucide-react": "^0.544.0",
     "framer-motion": "^11.11.17",
-    "sonner": "^1.7.0"
+    "sonner": "^1.7.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1",
+    "tailwind-merge": "^2.5.2"
   },
   "devDependencies": {
     "@types/node": "^20",
