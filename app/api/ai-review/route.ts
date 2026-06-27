@@ -1,42 +1,49 @@
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import OpenAI from 'openai'
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 })
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   try {
+    // Check if key exists first
+    if (!process.env.OPENAI_API_KEY) {
+      return NextResponse.json(
+        { error: 'OPENAI_API_KEY not set in Vercel' }, 
+        { status: 500 }
+      )
+    }
+
     const { name, description, category, price } = await req.json()
-
-    const prompt = `You are an expert AI tool reviewer. Analyze this tool and return ONLY valid JSON.
-
-Tool: ${name}
-Category: ${category}
-Price: ${price}
-Description: ${description}
-
-Return JSON with this exact structure:
-{
-  "pros": ["3 specific pros, max 8 words each"],
-  "cons": ["3 specific cons, max 8 words each"], 
-  "bestFor": "One sentence: who should use this tool"
-}
-
-Be honest. If it's expensive, say it. If it's limited, say it. No marketing fluff.`
 
     const completion = await openai.chat.completions.create({
       model: 'gpt-4o-mini',
-      messages: [{ role: 'user', content: prompt }],
+      messages: [
+        {
+          role: 'system',
+          content: 'You are a tech reviewer. Return ONLY valid JSON with keys: pros, cons, bestFor. pros and cons must be arrays of 3 short strings. bestFor is one sentence.'
+        },
+        {
+          role: 'user',
+          content: `Review this AI tool: ${name} - ${description}. Category: ${category}. Price: ${price}`
+        }
+      ],
       response_format: { type: 'json_object' },
       temperature: 0.7,
     })
 
-    const review = JSON.parse(completion.choices[0].message.content || '{}')
+    const content = completion.choices[0].message.content
+    if (!content) throw new Error('OpenAI returned empty response')
     
-    return NextResponse.json(review)
-  } catch (error) {
-    console.error(error)
-    return NextResponse.json({ error: 'Failed to generate review' }, { status: 500 })
+    const result = JSON.parse(content)
+    return NextResponse.json(result)
+
+  } catch (error: any) {
+    console.error('AI Review Error:', error)
+    return NextResponse.json(
+      { error: error.message || 'Failed to generate review' }, 
+      { status: 500 }
+    )
   }
 }
