@@ -41,7 +41,11 @@ export default async function ToolsPage({
   src={tool.logo} 
   alt={tool.name}
   className="w-12 h-12 mb-4 rounded-lg object-contain bg-white p-1"
+  onError={(e) => {
+    e.currentTarget.src = `https://ui-avatars.com/api/?name=${tool.name}&background=8b5cf6&color=fff`
+  }}
 />
+
 
               <h3 className="text-xl font-bold mb-2">{tool.name}</h3>
               <p className="text-purple-400 text-sm mb-3">{tool.price}</p>
