@@ -37,7 +37,12 @@ export default async function ToolsPage({
               target="_blank"
               className="bg-gray-900 border border-gray-800 rounded-xl p-6 hover:border-purple-500 transition"
             >
-              <div className="text-4xl mb-4">{tool.logo}</div>
+             <img 
+  src={tool.logo} 
+  alt={tool.name}
+  className="w-12 h-12 mb-4 rounded-lg object-contain bg-white p-1"
+/>
+
               <h3 className="text-xl font-bold mb-2">{tool.name}</h3>
               <p className="text-purple-400 text-sm mb-3">{tool.price}</p>
               <p className="text-gray-400 text-sm mb-4">{tool.description}</p>
