@@ -794,6 +794,21 @@ export const tools = [
       bestFor: 'Designers iterating on concepts live'
     }
   },
-  {
+   {
     id: 'playground',
+    name: 'Playground AI',
+    description: 'Edit images with AI',
+    category: 'Image Editing',
+    price: 'Free',
+    url: 'https://playgroundai.com',
+    logo: 'https://playgroundai.com/favicon.ico',
+    featured: false,
+    aiReview: {
+      pros: ['Free tier', 'Easy to use', 'Good for beginners'],
+      cons: ['Limited credits', 'Queue times', 'Basic features'],
+      bestFor: 'Hobbyists editing images with AI'
+    }
+  }
+]
+
    
