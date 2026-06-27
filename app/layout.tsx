@@ -1,12 +1,9 @@
-import './globals.css' 
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
-
-const inter = Inter({ subsets: ['latin'] })
+import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'AIToolHub',
-  description: 'Discover the best AI tools in seconds',
+  title: 'AI Tool Hub',
+  description: 'Find the best AI tools',
 }
 
 export default function RootLayout({
@@ -15,8 +12,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className="dark">
-      <body className={inter.className}>{children}</body>
+    <html lang="en">
+      <body>{children}</body>
     </html>
   )
 }
