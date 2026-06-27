@@ -1,12 +1,13 @@
 import { tools } from '@/lib/tools'
 import Link from 'next/link'
 
-export default function ToolsPage({
+export default async function ToolsPage({
   searchParams,
 }: {
-  searchParams: { search?: string }
+  searchParams: Promise<{ search?: string }>
 }) {
-  const query = searchParams.search?.toLowerCase() || ''
+  const params = await searchParams
+  const query = params.search?.toLowerCase() || ''
   
   const filteredTools = query 
     ? tools.filter(tool => 
