@@ -6,7 +6,8 @@ export const tools = [
     price: 'Free / $20/mo',
     description: 'Conversational AI by OpenAI. Best for coding, writing, brainstorming.',
     url: 'https://chat.openai.com',
-    logo: 'https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg',
+    logo: 'https://logo.clearbit.com/openai.com',
+    domain: 'openai.com', // add this
     tags: ['writing', 'coding', 'general']
   },
   {
@@ -16,7 +17,8 @@ export const tools = [
     price: 'Free / $20/mo',
     description: 'Anthropic\'s AI. Best for long documents, coding, analysis. 200k context.',
     url: 'https://claude.ai',
-    logo: 'https://cdn.worldvectorlogo.com/logos/claude-2.svg',
+    logo: 'https://logo.clearbit.com/anthropic.com',
+    domain: 'anthropic.com',
     tags: ['coding', 'analysis', 'documents']
   },
   {
@@ -26,7 +28,8 @@ export const tools = [
     price: '$10-60/mo',
     description: 'Best AI image generator. Runs on Discord. Photorealistic + artistic.',
     url: 'https://midjourney.com',
-    logo: 'https://cdn.worldvectorlogo.com/logos/midjourney.svg',
+    logo: 'https://logo.clearbit.com/midjourney.com',
+    domain: 'midjourney.com',
     tags: ['image', 'art', 'design']
   },
   {
@@ -36,7 +39,8 @@ export const tools = [
     price: 'Free / $20/mo',
     description: 'AI code editor. Fork of VSCode. Writes, edits, debugs code with AI.',
     url: 'https://cursor.com',
-    logo: 'https://avatars.githubusercontent.com/u/120041861?s=200&v=4',
+    logo: 'https://logo.clearbit.com/cursor.com',
+    domain: 'cursor.com',
     tags: ['coding', 'ide', 'developer']
   },
   {
@@ -46,7 +50,8 @@ export const tools = [
     price: 'Free / $10/mo',
     description: 'Generate full songs with vocals from text prompts. Insane quality.',
     url: 'https://suno.com',
-    logo: 'https://assets-global.website-files.com/65b0f0c8c0f7b5a7a0e4f3e0/65b0f0c8c0f7b5a7a0e4f411_suno-logo.svg',
+    logo: 'https://logo.clearbit.com/suno.com',
+    domain: 'suno.com',
     tags: ['music', 'audio', 'creative']
   },
   {
@@ -56,7 +61,8 @@ export const tools = [
     price: 'Free / $12/mo',
     description: 'Text-to-video + video editing with AI. Gen-3 Alpha model.',
     url: 'https://runwayml.com',
-    logo: 'https://images.crunchbase.com/image/upload/c_pad,h_256,w_256,f_auto,q_auto:eco,dpr_1/v1491920957/zxmvqqxpqbj9qyqjwqmh.png',
+    logo: 'https://logo.clearbit.com/runwayml.com',
+    domain: 'runwayml.com',
     tags: ['video', 'editing', 'creative']
   }
 ]
