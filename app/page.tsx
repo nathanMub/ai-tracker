@@ -36,7 +36,8 @@ const MOCK_CATEGORIES = [
 ];
 
 function useFetch(url: string) { 
-  const [data, setData] = useState(null);
+ const [data, setData] = useState(null);
+
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     let alive = true;
