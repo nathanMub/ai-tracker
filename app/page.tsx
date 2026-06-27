@@ -43,7 +43,7 @@ export default function Home() {
           </div>
         </form>
 
-        <div className="flex flex-wrap gap-3 justify-center">
+        <div className="flex flex-wrap gap-3 justify-center items-center">
           <span className="text-gray-400">Popular:</span>
           {popularTools.map(id => {
             const tool = tools.find(t => t.id === id)
@@ -52,17 +52,17 @@ export default function Home() {
               <Link 
                 key={id}
                 href={`/tools?search=${tool.name}`}
-                className="flex items-center gap-2 bg-gray-900 border border-gray-800 px-4 py-2 rounded-full hover:border-purple-500 transition"
+                className="flex items-center gap-2 bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded-full transition border border-gray-700 hover:border-purple-500"
               >
                 <img 
                   src={tool.logo} 
                   alt={tool.name}
-                  className="w-5 h-5 rounded object-contain bg-white"
+                  className="w-5 h-5 rounded-full object-contain bg-white"
                   onError={(e) => {
-                    e.currentTarget.style.display = 'none'
+                    e.currentTarget.src = `https://ui-avatars.com/api/?name=${tool.name}&background=8b5cf6&color=fff&size=32`
                   }}
                 />
-                <span className="text-sm">{tool.name}</span>
+                <span className="text-sm font-medium">{tool.name}</span>
               </Link>
             )
           })}
