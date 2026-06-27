@@ -59,7 +59,7 @@ function Hero() {
   const router = useRouter();
   const [q, setQ] = useState('');
   const popular = ['ChatGPT', 'Midjourney', 'Claude', 'Cursor', 'Suno', 'Runway'];
-  const onSearch = (e) => {
+const onSearch = (e: React.FormEvent) => {
     e.preventDefault();
     const url = q? `/tools?search=${encodeURIComponent(q)}` : '/tools';
     router.push(url);
