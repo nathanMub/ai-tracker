@@ -12,7 +12,10 @@
     "next": "15.5.16",
     "react": "^18",
     "react-dom": "^18",
-    "openai": "^4.67.3"
+    "openai": "^4.67.3",
+    "lucide-react": "^0.544.0",
+    "framer-motion": "^11.11.17",
+    "sonner": "^1.7.0"
   },
   "devDependencies": {
     "@types/node": "^20",
