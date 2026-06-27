@@ -9,10 +9,15 @@ export default function Home() {
   const [category, setCategory] = useState('All')
 
   const categories = ['All', ...new Set(tools.map(t => t.category))]
-
+  const featuredTools = tools.filter(t => t.featured)
+  
   const filteredTools = tools.filter(tool => {
-    const matchesSearch = tool.name.toLowerCase().includes(search.toLowerCase()) || 
-                         tool.description.toLowerCase().includes(search.toLowerCase())
+    const query = search.toLowerCase()
+    const matchesSearch = 
+      tool.name.toLowerCase().includes(query) ||
+      tool.description.toLowerCase().includes(query) ||
+      tool.category.toLowerCase().includes(query)
+    
     const matchesCategory = category === 'All' || tool.category === category
     return matchesSearch && matchesCategory
   })
@@ -26,11 +31,63 @@ export default function Home() {
             AI Tool Hub
           </h1>
           <p className="text-gray-400 text-lg">
-            Discover the best AI tools. No fluff. Just what works.
+            {tools.length}+ AI tools. No fluff. Just what works.
           </p>
         </div>
 
+        {/* FEATURED SECTION */}
+        {featuredTools.length > 0 && (
+          <div className="mb-16">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-8 h-8 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-lg flex items-center justify-center">
+                ⭐
+              </div>
+              <h2 className="text-2xl font-bold">Top Picks</h2>
+            </div>
+            
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {featuredTools.map((tool) => (
+                <Link
+                  key={tool.id}
+                  href={`/tools/${tool.id}`}
+                  className="bg-gradient-to-br from-orange-500/10 to-pink-500/10 border-2 border-orange-500/30 rounded-2xl p-6 hover:border-orange-500/60 hover:scale-105 transition-all duration-200 relative"
+                >
+                  <div className="absolute top-3 right-3 bg-gradient-to-r from-orange-500 to-pink-500 text-xs font-bold px-2 py-1 rounded">
+                    FEATURED
+                  </div>
+                  <div className="flex items-start gap-4 mb-4">
+                    <img 
+                      src={tool.logo} 
+                      alt={tool.name}
+                      className="w-14 h-14 rounded-xl object-contain bg-white p-2 shadow-lg"
+                    />
+                    <div className="flex-1">
+                      <h3 className="font-bold text-xl mb-1">{tool.name}</h3>
+                      <span className="text-xs text-orange-400 bg-orange-500/20 px-2 py-1 rounded">
+                        {tool.category}
+                      </span>
+                    </div>
+                  </div>
+                  <p className="text-gray-300 text-sm mb-4 line-clamp-2">{tool.description}</p>
+                  <div className="flex items-center justify-between">
+                    <span className="text-green-400 font-bold text-lg">{tool.price}</span>
+                    <span className="text-orange-400 text-sm font-semibold">View →</span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* SEARCH + FILTERS */}
         <div className="mb-8 space-y-4">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-500 rounded-lg flex items-center justify-center">
+              🔍
+            </div>
+            <h2 className="text-2xl font-bold">All Tools</h2>
+          </div>
+          
           <input
             type="text"
             placeholder="Search tools..."
@@ -44,53 +101,4 @@ export default function Home() {
               <button
                 key={cat}
                 onClick={() => setCategory(cat)}
-                className={`px-4 py-2 rounded-lg text-sm font-semibold transition ${
-                  category === cat
-                    ? 'bg-gradient-to-r from-orange-500 to-pink-500 text-white'
-                    : 'bg-[#1A1A1A] border border-gray-800 text-gray-400 hover:border-gray-700'
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredTools.map((tool) => (
-            <Link
-              key={tool.id}
-              href={`/tools/${tool.id}`}
-              className="bg-gradient-to-br from-[#1A1A1A] to-[#141414] border border-gray-800/50 rounded-2xl p-6 hover:border-orange-500/50 hover:scale-105 transition-all duration-200"
-            >
-              <div className="flex items-start gap-4 mb-4">
-                <img 
-                  src={tool.logo} 
-                  alt={tool.name}
-                  className="w-12 h-12 rounded-xl object-contain bg-white p-2"
-                />
-                <div className="flex-1">
-                  <h3 className="font-bold text-lg mb-1">{tool.name}</h3>
-                  <span className="text-xs text-orange-400 bg-orange-500/10 px-2 py-1 rounded">
-                    {tool.category}
-                  </span>
-                </div>
-              </div>
-              <p className="text-gray-400 text-sm mb-4 line-clamp-2">{tool.description}</p>
-              <div className="flex items-center justify-between">
-                <span className="text-green-400 font-bold">{tool.price}</span>
-                <span className="text-gray-500 text-sm">View →</span>
-              </div>
-            </Link>
-          ))}
-        </div>
-
-        {filteredTools.length === 0 && (
-          <div className="text-center py-12 text-gray-500">
-            No tools found. Try a different search.
-          </div>
-        )}
-      </div>
-    </div>
-  )
-}
+                className={`
