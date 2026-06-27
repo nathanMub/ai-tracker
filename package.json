@@ -36,3 +36,7 @@
     "typescript": "^5"
   }
 }
+"dependencies": {
+  "@supabase/supabase-js": "^2.45.0",
+  // ... keep your other deps
+}
