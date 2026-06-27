@@ -7,11 +7,9 @@ import { useState, useEffect } from 'react'
 
 export default function ToolPage({ params }: { params: Promise<{ id: string }> }) {
   const [tool, setTool] = useState<any>(null)
-  const [id, setId] = useState('')
 
   useEffect(() => {
     params.then(p => {
-      setId(p.id)
       const found = tools.find(t => t.id === p.id)
       if (!found) return notFound()
       setTool(found)
@@ -73,4 +71,44 @@ export default function ToolPage({ params }: { params: Promise<{ id: string }> }
             <>
               <div className="grid md:grid-cols-2 gap-6 mb-6">
                 <div>
-                  <h3 className="font-semibold mb-3 text-green
+                  <h3 className="font-semibold mb-3 text-green-400 flex items-center gap-2">
+                    <span className="text-lg">✓</span> Pros
+                  </h3>
+                  <ul className="space-y-2">
+                    {tool.aiReview.pros.map((pro: string) => (
+                      <li key={pro} className="text-gray-300 flex items-start gap-2">
+                        <span className="text-green-500 mt-1">•</span> {pro}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div>
+                  <h3 className="font-semibold mb-3 text-red-400 flex items-center gap-2">
+                    <span className="text-lg">✗</span> Cons
+                  </h3>
+                  <ul className="space-y-2">
+                    {tool.aiReview.cons.map((con: string) => (
+                      <li key={con} className="text-gray-300 flex items-start gap-2">
+                        <span className="text-red-500 mt-1">•</span> {con}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              <div className="bg-gradient-to-r from-purple-600/20 to-blue-600/20 border border-purple-500/30 rounded-xl p-5">
+                <p className="text-xs text-purple-300 font-semibold mb-1 uppercase tracking-wider">BEST FOR</p>
+                <p className="text-lg text-white">{tool.aiReview.bestFor}</p>
+              </div>
+            </>
+          ) : (
+            <div className="text-center py-8 text-gray-500">
+              No review available for this tool yet.
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
