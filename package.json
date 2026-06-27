@@ -1,5 +1,5 @@
 {
-  "name": "nextjs-mongo-template",
+  "name": "ai-tool-hub",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,38 +9,18 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.45.0",
     "next": "15.5.16",
-    "react": "^18",
-    "react-dom": "^18",
-    "openai": "^4.67.3",
-    "lucide-react": "^0.544.0",
-    "framer-motion": "^11.11.17",
-    "sonner": "^1.7.0",
-    "class-variance-authority": "^0.7.1",
-    "clsx": "^2.1",
-    "tailwind-merge": "^2.5.2",
-    "@radix-ui/react-slot": "^1.1.0",
-    "@radix-ui/react-dialog": "^1.1.2",
-    "@radix-ui/react-dropdown-menu": "^2.1.2",
-    "@radix-ui/react-toast": "^1.2"
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
     "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
-    "autoprefixer": "^10.0.1",
-    "eslint": "^8",
-    "eslint-config-next": "15.5.16",
-    "postcss": "^8",
-    "tailwindcss": "^3.3.0",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.47",
+    "tailwindcss": "^3.4.14",
     "typescript": "^5"
   }
-}
-"dependencies": {
-  "@supabase/supabase-js": "^2.45.0",
-  "next": "15.5.16",
-  "react": "^19.0.0",
-  "react-dom": "^19.0.0"
-
-  // ... keep your other deps
 }
